@@ -57,12 +57,11 @@ class MainActivity : AppCompatActivity() {
 
 
     fun killAppAndRestart() {
-        val packageManager = packageManager
         val intent = packageManager.getLaunchIntentForPackage(packageName)
-        val componentName = intent?.component
-        val mainIntent = Intent.makeRestartActivityTask(componentName)
-        startActivity(mainIntent)
-        exitProcess(0)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
     }
 
 }
